@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-import os
+from routers import clients, proposals, earnings
 
 load_dotenv()
 
@@ -18,6 +18,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register routers
+app.include_router(clients.router)
+app.include_router(proposals.router)
+app.include_router(earnings.router)
 
 @app.get("/")
 def root():
