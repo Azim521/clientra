@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Clients from './pages/Clients'
 import Proposals from './pages/Proposals'
+import NewProposal from './pages/NewProposal'
 import Finance from './pages/Finance'
 import Settings from './pages/Settings'
 
@@ -21,6 +22,9 @@ function App() {
         } />
         <Route path="/proposals" element={
           <ProtectedRoute><Proposals /></ProtectedRoute>
+        } />
+        <Route path="/proposals/new" element={
+          <ProtectedRoute><NewProposal /></ProtectedRoute>
         } />
         <Route path="/finance" element={
           <ProtectedRoute><Finance /></ProtectedRoute>
