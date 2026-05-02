@@ -1,41 +1,64 @@
+import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import { Users, FileText, DollarSign, TrendingUp } from 'lucide-react'
+import { apiGet } from '../lib/api'
 
-const stats = [
-  {
-    label: 'Active Clients',
-    value: '0',
-    icon: Users,
-    color: '#6366f1',
-    bg: 'rgba(99,102,241,0.1)'
-  },
-  {
-    label: 'Proposals Sent',
-    value: '0',
-    icon: FileText,
-    color: '#8b5cf6',
-    bg: 'rgba(139,92,246,0.1)'
-  },
-  {
-    label: 'Revenue This Month',
-    value: '$0',
-    icon: DollarSign,
-    color: '#22c55e',
-    bg: 'rgba(34,197,94,0.1)'
-  },
-  {
-    label: 'Pending Follow-ups',
-    value: '0',
-    icon: TrendingUp,
-    color: '#f59e0b',
-    bg: 'rgba(245,158,11,0.1)'
-  },
-]
+interface Summary {
+  total_earnings: number
+  monthly_earnings: number
+  active_clients: number
+  total_proposals: number
+}
 
 export default function Dashboard() {
+  const [summary, setSummary] = useState<Summary>({
+    total_earnings: 0,
+    monthly_earnings: 0,
+    active_clients: 0,
+    total_proposals: 0
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    apiGet('/earnings/summary')
+      .then(data => setSummary(data))
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
+  const stats = [
+    {
+      label: 'Active Clients',
+      value: loading ? '...' : summary.active_clients.toString(),
+      icon: Users,
+      color: '#6366f1',
+      bg: 'rgba(99,102,241,0.1)'
+    },
+    {
+      label: 'Proposals Sent',
+      value: loading ? '...' : summary.total_proposals.toString(),
+      icon: FileText,
+      color: '#8b5cf6',
+      bg: 'rgba(139,92,246,0.1)'
+    },
+    {
+      label: 'Revenue This Month',
+      value: loading ? '...' : `$${summary.monthly_earnings.toFixed(2)}`,
+      icon: DollarSign,
+      color: '#22c55e',
+      bg: 'rgba(34,197,94,0.1)'
+    },
+    {
+      label: 'Total Earnings',
+      value: loading ? '...' : `$${summary.total_earnings.toFixed(2)}`,
+      icon: TrendingUp,
+      color: '#f59e0b',
+      bg: 'rgba(245,158,11,0.1)'
+    },
+  ]
+
   return (
     <Layout title="Dashboard">
-      {/* Welcome */}
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{
           fontSize: '24px',
@@ -50,7 +73,6 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Stat Cards */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
