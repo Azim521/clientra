@@ -48,7 +48,7 @@ class EarningCreate(BaseModel):
     amount: float
     currency: Optional[str] = 'USD'
     description: Optional[str] = None
-    date: Optional[date] = None
+    date: Optional[str] = None
     client_id: Optional[UUID] = None
 
 class EarningResponse(BaseModel):
