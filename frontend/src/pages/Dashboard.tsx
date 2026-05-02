@@ -1,59 +1,108 @@
-import { useAuth } from '../context/AuthContext'
+import Layout from '../components/Layout'
+import { Users, FileText, DollarSign, TrendingUp } from 'lucide-react'
+
+const stats = [
+  {
+    label: 'Active Clients',
+    value: '0',
+    icon: Users,
+    color: '#6366f1',
+    bg: 'rgba(99,102,241,0.1)'
+  },
+  {
+    label: 'Proposals Sent',
+    value: '0',
+    icon: FileText,
+    color: '#8b5cf6',
+    bg: 'rgba(139,92,246,0.1)'
+  },
+  {
+    label: 'Revenue This Month',
+    value: '$0',
+    icon: DollarSign,
+    color: '#22c55e',
+    bg: 'rgba(34,197,94,0.1)'
+  },
+  {
+    label: 'Pending Follow-ups',
+    value: '0',
+    icon: TrendingUp,
+    color: '#f59e0b',
+    bg: 'rgba(245,158,11,0.1)'
+  },
+]
 
 export default function Dashboard() {
-  const { user, logout } = useAuth()
-
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#0f1117',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      gap: '16px'
-    }}>
-      <div style={{
-        background: 'rgba(34,197,94,0.1)',
-        border: '1px solid rgba(34,197,94,0.3)',
-        borderRadius: '16px',
-        padding: '32px 48px',
-        textAlign: 'center'
-      }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
-        <h1 style={{
-          fontSize: '28px',
+    <Layout title="Dashboard">
+      {/* Welcome */}
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{
+          fontSize: '24px',
           fontWeight: '700',
-          color: '#22c55e',
-          marginBottom: '8px'
+          color: '#f1f5f9',
+          marginBottom: '6px'
         }}>
-          You're in!
-        </h1>
-        <p style={{ color: '#94a3b8', marginBottom: '4px' }}>
-          Logged in as:
+          Welcome to Clientra 👋
+        </h2>
+        <p style={{ color: '#64748b', fontSize: '15px' }}>
+          Here's what's happening with your freelance business today.
         </p>
-        <p style={{ color: '#f1f5f9', fontWeight: '600', marginBottom: '24px' }}>
-          {user?.email}
-        </p>
-        <button
-          onClick={logout}
-          style={{
-            padding: '10px 24px',
-            background: 'rgba(239,68,68,0.15)',
-            border: '1px solid rgba(239,68,68,0.3)',
-            borderRadius: '10px',
-            color: '#ef4444',
-            cursor: 'pointer',
-            fontSize: '14px',
-            fontWeight: '600'
-          }}
-        >
-          Logout
-        </button>
       </div>
-      <p style={{ color: '#475569', fontSize: '13px' }}>
-        Day 2 ✅ — Dashboard coming on Day 3
-      </p>
-    </div>
+
+      {/* Stat Cards */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gap: '20px'
+      }}>
+        {stats.map(({ label, value, icon: Icon, color, bg }) => (
+          <div
+            key={label}
+            style={{
+              background: '#1e293b',
+              border: '1px solid #334155',
+              borderRadius: '16px',
+              padding: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              transition: 'transform 0.2s'
+            }}
+            onMouseOver={e => (e.currentTarget.style.transform = 'translateY(-2px)')}
+            onMouseOut={e => (e.currentTarget.style.transform = 'translateY(0)')}
+          >
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: bg,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <Icon size={22} color={color} />
+            </div>
+            <div>
+              <p style={{
+                fontSize: '13px',
+                color: '#64748b',
+                marginBottom: '4px'
+              }}>
+                {label}
+              </p>
+              <p style={{
+                fontSize: '28px',
+                fontWeight: '700',
+                color: '#f1f5f9'
+              }}>
+                {value}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Layout>
   )
 }
