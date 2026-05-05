@@ -9,6 +9,7 @@ import Proposals from './pages/Proposals'
 import NewProposal from './pages/NewProposal'
 import Finance from './pages/Finance'
 import Settings from './pages/Settings'
+import Outreach from './pages/Outreach'
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         } />
         <Route path="/proposals/new" element={
           <ProtectedRoute><NewProposal /></ProtectedRoute>
+        } />
+        <Route path="/outreach" element={
+          <ProtectedRoute><Outreach /></ProtectedRoute>
         } />
         <Route path="/finance" element={
           <ProtectedRoute><Finance /></ProtectedRoute>

@@ -8,10 +8,13 @@ import {
   Zap
 } from 'lucide-react'
 
+import { Target } from 'lucide-react'
+
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
   { icon: Users, label: 'Clients', path: '/clients' },
   { icon: FileText, label: 'Proposals', path: '/proposals' },
+  { icon: Target, label: 'Cold Outreach', path: '/outreach' },
   { icon: DollarSign, label: 'Finance', path: '/finance' },
   { icon: Settings, label: 'Settings', path: '/settings' },
 ]
