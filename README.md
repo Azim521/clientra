@@ -86,39 +86,38 @@ cp .env.example .env
 uvicorn main:app --reload
 ```
 
-### Environment Variables
+## 🔐 Environment Variables
 
 **Frontend (.env.local)**
-
+```
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 VITE_API_URL=your_backend_url
+```
 
 **Backend (.env)**
-
+```
 SUPABASE_URL=your_supabase_url
 SUPABASE_SERVICE_KEY=your_supabase_service_key
 OPENAI_API_KEY=your_openai_api_key
-
----
+```
 
 ## 📁 Project Structure
-clientra/
-├── frontend/                 # React + TypeScript
-│   ├── src/
-│   │   ├── components/       # Layout, Sidebar, Topbar
-│   │   ├── context/          # Auth context
-│   │   ├── lib/              # Supabase + API utils
-│   │   └── pages/            # All page components
-│   └── vite.config.ts
-├── backend/                  # FastAPI
-│   ├── routers/              # clients, proposals, earnings
-│   ├── models/               # Pydantic schemas
-│   ├── services/             # Supabase client
-│   └── main.py
-└── README.md
 
----
+```
+clientra/
+├── frontend/
+│   └── src/
+│       ├── components/    # Layout, Sidebar, Topbar
+│       ├── context/       # Auth context
+│       ├── lib/           # Supabase + API utils
+│       └── pages/         # All page components
+└── backend/
+    ├── routers/           # clients, proposals, earnings
+    ├── models/            # Pydantic schemas
+    ├── services/          # Supabase client
+    └── main.py
+```
 
 ## 🔌 API Endpoints
 
